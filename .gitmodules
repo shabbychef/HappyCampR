@@ -1,0 +1,6 @@
+[submodule "rpkg_make"]
+	path = rpkg_make
+	url = https://github.com/shabbychef/rpkg_make.git
+[submodule "campdata"]
+	path = campdata
+	url = https://github.com/shabbychef/campdata.git
