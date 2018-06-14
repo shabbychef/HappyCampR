@@ -21,12 +21,8 @@
 # Author: Steven E. Pav
 # Comments: Steven E. Pav
 
-#' Inference on the Markowitz portfolio.
+#' Shiny App to Find Campgrounds
 #' 
-#' @section Markowitz Portfolio:
-#'
-#' foo.
-#'
 #' @section Legal Mumbo Jumbo:
 #'
 #' HappyCampR is distributed in the hope that it will be useful,
@@ -36,18 +32,12 @@
 #'
 #' @template etc
 #'
-#' @references
-#'
-#' Brandt, Michael W. "Portfolio Choice Problems." Handbook of Financial
-#' Econometrics 1 (2009): 269--336. 
-#' \url{http://shr.receptidocs.ru/docs/5/4748/conv_1/file1.pdf#page=298}
-#'
-#' @import matrixcalc sandwich gtools
+#' @import shiny
 #'
 #' @name HappyCampR
 #' @rdname HappyCampR
 #' @docType package
-#' @title statistics concerning the Markowitz portfolio
+#' @title Shiny App to Find Campgrounds
 #' @keywords package
 #' @note
 #' 
