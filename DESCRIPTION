@@ -14,6 +14,8 @@ Depends:
     R (>= 3.0.2),
     dplyr,
     ggplot2,
+    DT,
+    shinythemes,
     geosphere,
     magrittr,
     ggmap,
@@ -27,4 +29,3 @@ VignetteBuilder: knitr
 Collate:
     'campr_app.r'
     'HappyCampR.r'
-RoxygenNote: 6.0.1

@@ -30,7 +30,7 @@ types <- list(national=c('National Park'='NP',
 
 # Define UI 
 my_ui <- function(){shinyUI(
-	fluidPage(theme=shinytheme("spacelab"),#FOLDUP
+	fluidPage(theme=shinythemes::shinytheme("spacelab"),#FOLDUP
 		# for this, see: http://stackoverflow.com/a/22886762/164611
 		# Application title
 		tags$head(
@@ -199,8 +199,10 @@ my_server <- function(input, output, session) {
 
 	just_load <- reactive({
 		#indat <- readr::read_csv('../intermediate/MoreCamp.csv') 
+		#indat <- readr::read_csv('campdata/intermediate/MoreCamp.csv') 
 		data("MoreCamp", package="HappyCampR")
 		indat <- MoreCamp
+		
 		indat
 	})
 
@@ -374,7 +376,7 @@ my_server <- function(input, output, session) {
 #' @author Steven E. Pav \email{steven@@gilgamath.com}
 #' @export
 campr_app <- function() {
-	shinyApp(ui=my_ui(), server=my_server())
+	shinyApp(ui=my_ui(), server=my_server)
 }
 
 #for vim modeline: (do not edit)

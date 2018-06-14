@@ -39,7 +39,7 @@ RUN (DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true apt-get ins
 	/usr/local/bin/install2.r Rcpp testthat roxygen2 devtools knitr formatR codetools)
 
 # rinstall somethings...
-RUN /usr/local/bin/install2.r shiny dplyr ggplot2 geosphere magrittr ggmap urltools string lubridate;
+RUN /usr/local/bin/install2.r shiny shinythemes DT dplyr ggplot2 geosphere magrittr ggmap urltools string lubridate;
 
 RUN groupadd -g 1001 spav && useradd -g spav -u 1001 spav;
 USER spav

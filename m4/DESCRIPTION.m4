@@ -18,6 +18,8 @@ Depends:
     R (>= 3.0.2),
     dplyr,
     ggplot2,
+    DT,
+    shinythemes,
 dnl readr,
     geosphere,
     magrittr,
