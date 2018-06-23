@@ -227,7 +227,7 @@ my_server <- function(input, output, session) {
 	just_load <- reactive({
 		#indat <- readr::read_csv('../intermediate/MoreCamp.csv') 
 		#indat <- readr::read_csv('campdata/intermediate/MoreCamp.csv') 
-		data("MoreCamp", package="HappyCampR")
+		utils::data("MoreCamp", package="HappyCampR")
 		indat <- MoreCamp
 		
 		indat
