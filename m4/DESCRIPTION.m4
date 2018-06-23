@@ -13,22 +13,22 @@ Date: DATE()
 License: LGPL-3
 Title: Shiny app to find campgrounds.
 BugReports: https://github.com/shabbychef/PKG_NAME()/issues
-Description: a Shiny app to find campgrounds.
+Description: A Shiny app to find campgrounds.
 Depends: 
     R (>= 3.0.2),
+    shiny
+Imports:
     dplyr,
     ggplot2,
     DT,
+    leaflet,
     shinythemes,
 dnl readr,
     geosphere,
     magrittr,
-    ggmap,
     urltools,
     stringr,
     lubridate
-Imports:
-    shiny
 URL: https://github.com/shabbychef/PKG_NAME()
 dnl VignetteBuilder: knitr
 Collate:

@@ -69,10 +69,9 @@ my_ui <- function(){shinyUI(
 									selected='true',multiple=TRUE))),   # end row
 			selectInput("sel_units","Units:",choices=c('metric','imperial'),selected='metric',multiple=FALSE),
 			hr(),
-			sliderInput("sel_elevation","Elevation Range (m)",sep=',',post='',min=-100,max=4000,value=c(0,2000)),
+			sliderInput("sel_elevation","Elevation Range (m)",sep=',',post='',min=-100,max=4000,value=c(0,2500)),
 			sliderInput("sel_dist","Distance to point (km)",sep=',',post='',min=0,max=800,value=c(0,80)),
 			sliderInput("sel_num_campsite","Num Campsite Range",sep=',',post=' sites',min=0,max=1000,value=c(0,250)),
-			sliderInput("sel_zoom","Zoom Level",min=5,max=11,value=7,step=1),
 			helpText('Some campgrounds are closed part of the year.',
 							 'If you select a date, and click the checkbox,',
 							 'we will restrict by opening and closing date. (experimental)'),
@@ -82,14 +81,15 @@ my_ui <- function(){shinyUI(
 			hr(),
 			helpText('data scraped from the web'),
 			bookmarkButton('bookmark',title='bookmark page'),
+			textOutput('debugging'),
 			hr()
 			),#UNFOLD
 	mainPanel(#FOLDUP
 		width=9,
 		tabsetPanel(
 			tabPanel('data',#FOLDUP
-					DT::dataTableOutput('camp_table'),
-					plotOutput('camps_map',width='1000px',height='900px')
+					leaflet::leafletOutput('camps_map',width='100%',height='600px'),
+					DT::dataTableOutput('camp_table')
 					)#UNFOLD
 				) # tabSetPanel
 			)  # mainPanel#UNFOLD
@@ -124,10 +124,43 @@ KMPMi <<- 1.60934   # km per mile
 
 # Define server logic # FOLDUP
 my_server <- function(input, output, session) {
+	viewport <- reactiveValues(lat_lo=0,lat_hi=0,lon_lo=0,lon_hi=0)
+
 	#cat('server!\n',file='/tmp/shiny.err')
 	searched <- reactiveValues(text=c(),
 														 lat=c(),
 														 lon=c())
+
+	observeEvent(input$camps_map_bounds,{
+								 viewport$lat_lo <- as.numeric(input$camps_map_bounds[3])
+								 viewport$lat_hi <- as.numeric(input$camps_map_bounds[1])
+								 viewport$lon_lo <- as.numeric(input$camps_map_bounds[4])
+								 viewport$lon_hi <- as.numeric(input$camps_map_bounds[2])
+
+								 lat_cen <- 0.5 * (viewport$lat_lo + viewport$lat_hi)
+								 lon_cen <- 0.5 * (viewport$lon_lo + viewport$lon_hi)
+
+								 del_lat <- abs(viewport$lat_hi - viewport$lat_lo)
+								 del_lon <- abs(viewport$lon_hi - viewport$lon_lo)
+
+								 # in meters
+								 dist_lat <- distHaversine(p1=c(viewport$lon_lo,viewport$lat_lo),
+																					 p2=c(viewport$lon_lo,viewport$lat_hi))
+								 dist_lon <- distHaversine(p1=c(viewport$lon_lo,viewport$lat_lo),
+																					 p2=c(viewport$lon_hi,viewport$lat_lo))
+								 # in kilometers
+								 min_dist <- 0.5 * 1e-3 * min(dist_lat,dist_lon)
+		
+								 # nah, don't do this, it screws up the map.
+								 # if (!is.null(min_dist)) { updateSliderInput(session,'sel_dist',value=c(min(input$sel_dist),min_dist)) }
+
+								 if (!is.null(lat_cen) && (abs(lat_cen - input$sel_lat) > 0.4*del_lat)) { updateNumericInput(session,'sel_lat',value=lat_cen) }
+								 if (!is.null(lon_cen) && (abs(lon_cen - input$sel_lon) > 0.4*del_lon)) { updateNumericInput(session,'sel_lon',value=lon_cen) }
+	})
+
+
+	debuggery <- reactiveValues(msg='')
+	output$debugging <- renderText(debuggery$msg)
 
 	observeEvent(input$do_lookup,
 					{
@@ -186,17 +219,6 @@ my_server <- function(input, output, session) {
 		}
 		max(myrad)
 	})
-	get_zoom_level <- reactive({
-		# in km
-		myrad <- maximum_radius()
-		zl <- dplyr::case_when(myrad < 100 ~ 9L,
-														 myrad < 175 ~ 8L,
-														 myrad < 250 ~ 7L,
-														 myrad < 500 ~ 6L,
-														 TRUE ~ 5L)
-		zl 
-	})
-
 	just_load <- reactive({
 		#indat <- readr::read_csv('../intermediate/MoreCamp.csv') 
 		#indat <- readr::read_csv('campdata/intermediate/MoreCamp.csv') 
@@ -258,14 +280,6 @@ my_server <- function(input, output, session) {
 		otdat 
 	})
 
-
-	map_data <- reactive({
-		zl <- input$sel_zoom
-		zl <- get_zoom_level()
-		thedata <- ggmap::get_map(location=c(lon=input$sel_lon,lat=input$sel_lat),zoom=zl,
-															maptype='roadmap',source='google',force=TRUE)
-	})
-
 	# table of comparables #FOLDUP
 	output$camp_table <- DT::renderDataTable({
 		otdat <- dist_data()
@@ -317,19 +331,22 @@ my_server <- function(input, output, session) {
 	},
 	server=TRUE)#UNFOLD
 
-	output$camps_map <- renderPlot({
-		mapd <- map_data()
+	output$camps_map <- leaflet::renderLeaflet({
 		otdat <- dist_data()
 		srch_df <- search_data()
 
-		ph <- mapd %>% 
-			ggmap() +
-			geom_point(aes(x=lon,y=lat,size=num_campsite,label=campground_name),data=otdat,alpha=0.5) +
-			geom_text(aes(x=lon,y=lat,label=campground_name),data=otdat,color='red',alpha=0.8) +
-			geom_point(aes(x=lon,y=lat,label=location),data=srch_df,shape=3,color='blue',size=5,alpha=0.8) +
-			geom_text(aes(x=lon,y=lat,label=location),data=srch_df,hjust='left',vjust='bottom',color='blue',size=7,alpha=0.8) 
+		ph <- leaflet::leaflet(otdat) %>%
+				leaflet::addTiles() %>%
+				leaflet::addCircleMarkers(lat=~lat,lng=~lon,popup=~campground_name,
+																	color="#03F") %>%
+				leaflet::addCircleMarkers(lat=srch_df$lat,lng=srch_df$lon,popup='searched point',
+																	color="#F30")
 
 		ph
+	})
+
+	observeEvent(input$camps_map_zoom,{
+								 debuggery$msg <- paste('zoom changed to',input$camps_map_zoom)
 	})
 
 	setBookmarkExclude(c('bookmark'))
@@ -364,11 +381,6 @@ my_server <- function(input, output, session) {
 #'
 #' @keywords shiny
 #' @template etc
-#' @references
-#'
-#' Johnson, N. L., and Welch, B. L. "Applications of the non-central t-distribution."
-#' Biometrika 31, no. 3-4 (1940): 362-389. \url{http://dx.doi.org/10.1093/biomet/31.3-4.362}
-#'
 #' @examples 
 #' \dontrun{
 #' campr_app()

@@ -5,25 +5,25 @@ Authors@R: c(person(c("Steven", "E."), "Pav",
     email="shabbychef@gmail.com",
     comment = c(ORCID = "0000-0002-4197-6195")))
 Version: 0.0.0.0001
-Date: 2018-06-13
+Date: 2018-06-22
 License: LGPL-3
 Title: Shiny app to find campgrounds.
 BugReports: https://github.com/shabbychef/HappyCampR/issues
-Description: a Shiny app to find campgrounds.
+Description: A Shiny app to find campgrounds.
 Depends: 
     R (>= 3.0.2),
+    shiny
+Imports:
     dplyr,
     ggplot2,
     DT,
+    leaflet,
     shinythemes,
     geosphere,
     magrittr,
-    ggmap,
     urltools,
     stringr,
     lubridate
-Imports:
-    shiny
 URL: https://github.com/shabbychef/HappyCampR
 Collate:
     'campr_app.r'

@@ -32,7 +32,12 @@
 #'
 #' @template etc
 #'
-#' @import shiny
+#' @importFrom dplyr mutate arrange select filter rename left_join coalesce distinct summarize everything
+#' @importFrom utils data
+#' @importFrom shinythemes shinytheme
+#' @importFrom leaflet leafletOutput renderLeaflet leaflet addTiles addCircleMarkers
+#' @importFrom geosphere distHaversine distGeo
+#' @importFrom magrittr %>%
 #'
 #' @name HappyCampR
 #' @rdname HappyCampR
@@ -44,6 +49,26 @@
 #' This package is maintained as a hobby. 
 #'
 NULL
+
+
+#' @title Campground Data
+#' @description ... 
+#' @format A \code{data.frame} object with XXX rows and XX columns. The
+#' data are from
+#'
+#' The columns are defined as follows:
+#' \describe{
+#'  \item{\code{amt}}{The numeric amount of the ingredient.}
+#' }
+#' @source place, \url{campsite.info}
+#' @author Steven E. Pav \email{shabbychef@@gmail.com}
+#' @examples
+#' \dontrun{
+#' data(MoreCamp)
+#'
+#' }
+"MoreCamp"
+
 
 #' @title News for package 'HappyCampR':
 #'
