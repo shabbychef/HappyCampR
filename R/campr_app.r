@@ -12,8 +12,6 @@ globalVariables(c("campground_name","sdist","type","lat","lon","nearest_town","s
 									"MoreCamp"))
 
 # define UI logic# FOLDUP
-#indat <- readr::read_csv('../intermediate/MoreCamp.csv') 
-
 types <- list(national=c('National Park'='NP',
 												 'National Monument'='NM',
 												 'Canadian National Park'='CNP'),
@@ -75,9 +73,9 @@ my_ui <- function(){shinyUI(
 									selected='true',multiple=TRUE))),   # end row
 			selectInput("sel_units","Units:",choices=c('metric','imperial'),selected='metric',multiple=FALSE),
 			hr(),
-			sliderInput("sel_elevation","Elevation Range (m)",sep=',',post='',min=-100,max=4000,value=c(0,2500)),
-			sliderInput("sel_dist","Distance to point (km)",sep=',',post='',min=0,max=800,value=c(0,80)),
-			sliderInput("sel_num_campsite","Num Campsite Range",sep=',',post=' sites',min=0,max=1000,value=c(0,250)),
+			sliderInput("sel_elevation","Elevation Range (m)",sep=',',post='',min=-100,max=4000,value=c(0,3000)),
+			sliderInput("sel_dist","Distance to point (km)",sep=',',post='',min=0,max=800,value=c(0,100)),
+			sliderInput("sel_num_campsite","Num Campsite Range",sep=',',post=' sites',min=0,max=1000,value=c(0,500)),
 			helpText('Some campgrounds are closed part of the year.',
 							 'If you select a date, and click the checkbox,',
 							 'we will restrict by opening and closing date. (experimental)'),
@@ -104,6 +102,7 @@ my_ui <- function(){shinyUI(
 )}  # shinyUI
 # UNFOLD
 
+# some utilities# FOLDUP
 .applylink <- function(title,url) {
 	as.character(a(title,href=url,target="_blank"))
 }
@@ -122,6 +121,7 @@ search_link <- function(campground,city,state) {
 .logical_it <- function(x) {
 	as.logical(toupper(x))
 }
+# UNFOLD
 
 globalVariables(c("MPF","KMPMi"))
 MPF <<- 0.3048   # meters per foot
@@ -225,11 +225,8 @@ my_server <- function(input, output, session) {
 		max(myrad)
 	})
 	just_load <- reactive({
-		#indat <- readr::read_csv('../intermediate/MoreCamp.csv') 
-		#indat <- readr::read_csv('campdata/intermediate/MoreCamp.csv') 
 		utils::data("MoreCamp", package="HappyCampR")
 		indat <- MoreCamp
-		
 		indat
 	})
 
