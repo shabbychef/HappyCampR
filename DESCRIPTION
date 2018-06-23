@@ -7,7 +7,7 @@ Authors@R: c(person(c("Steven", "E."), "Pav",
 Version: 0.0.0.0001
 Date: 2018-06-22
 License: LGPL-3
-Title: Shiny app to find campgrounds.
+Title: Shiny app to find campgrounds
 BugReports: https://github.com/shabbychef/HappyCampR/issues
 Description: A Shiny app to find campgrounds.
 Depends: 
@@ -19,6 +19,7 @@ Imports:
     DT,
     leaflet,
     shinythemes,
+    ggmap,
     geosphere,
     magrittr,
     urltools,
@@ -28,4 +29,3 @@ URL: https://github.com/shabbychef/HappyCampR
 Collate:
     'campr_app.r'
     'HappyCampR.r'
-RoxygenNote: 6.0.1

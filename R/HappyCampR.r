@@ -32,12 +32,17 @@
 #'
 #' @template etc
 #'
-#' @importFrom dplyr mutate arrange select filter rename left_join coalesce distinct summarize everything
+#' @import shiny
+#' @importFrom dplyr mutate arrange select filter rename left_join coalesce distinct summarize everything data_frame
 #' @importFrom utils data
 #' @importFrom shinythemes shinytheme
+#' @importFrom urltools url_encode 
 #' @importFrom leaflet leafletOutput renderLeaflet leaflet addTiles addCircleMarkers
 #' @importFrom geosphere distHaversine distGeo
-#' @importFrom magrittr %>%
+#' @importFrom magrittr %>% %<>%
+#' @importFrom lubridate %m+% 
+#' @importFrom stringr str_interp
+#' @importFrom ggmap geocode  
 #'
 #' @name HappyCampR
 #' @rdname HappyCampR

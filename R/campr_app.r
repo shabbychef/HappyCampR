@@ -5,6 +5,12 @@
 # Author: Steven E. Pav <steven@gilgamath.com>
 # Comments: Steven E. Pav
 
+# nonsense to get CRAN checks and NSE to play nice.
+globalVariables(c("campground_name","sdist","type","lat","lon","nearest_town","state","elevation_m","num_campsite","dates_open",
+									"campground","nearest town","num campsites","dates open","closing_week","opening_week",
+									"toilets","showers","drinking_water","reservations",
+									"MoreCamp"))
+
 # define UI logic# FOLDUP
 #indat <- readr::read_csv('../intermediate/MoreCamp.csv') 
 
@@ -105,9 +111,7 @@ applylink <- function(title,url) {
 	as.character(mapply(.applylink,title,url))
 }
 .search_link <- function(campground,city,state) {
-	require(stringr)
-	require(urltools)
-	searchterm <- url_encode(paste(campground,city,state))
+	searchterm <- urltools::url_encode(paste(campground,city,state))
 	url <- stringr::str_interp('https://www.google.com/search?q=${searchterm}&ie=utf-8&oe=utf-8')
 	.applylink(title=campground,url=url)
 }
@@ -119,6 +123,7 @@ search_link <- function(campground,city,state) {
 	as.logical(toupper(x))
 }
 
+globalVariables(c("MPF","KMPMi"))
 MPF <<- 0.3048   # meters per foot
 KMPMi <<- 1.60934   # km per mile
 

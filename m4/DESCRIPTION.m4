@@ -11,7 +11,7 @@ Authors@R: c(person(c("Steven", "E."), "Pav",
 Version: VERSION()
 Date: DATE()
 License: LGPL-3
-Title: Shiny app to find campgrounds.
+Title: Shiny app to find campgrounds
 BugReports: https://github.com/shabbychef/PKG_NAME()/issues
 Description: A Shiny app to find campgrounds.
 Depends: 
@@ -24,6 +24,7 @@ Imports:
     leaflet,
     shinythemes,
 dnl readr,
+    ggmap,
     geosphere,
     magrittr,
     urltools,
