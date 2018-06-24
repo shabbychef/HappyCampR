@@ -7,6 +7,12 @@
 
 .carp <- function(...) { cat(...,file='~/camp_app.log',append=TRUE) }
 
+# nonsense to get CRAN checks and NSE to play nice.
+globalVariables(c("campground_name","sdist","type","lat","lon","nearest_town","state","elevation_m","num_campsite","dates_open",
+									"campground","nearest town","num campsites","dates open","closing_week","opening_week",
+									"toilets","showers","drinking_water","reservations",
+									"MoreCamp"))
+
 # some utilities# FOLDUP
 .applylink <- function(title,url) {
 	as.character(a(title,href=url,target="_blank"))
@@ -31,7 +37,7 @@ globalVariables(c("ERAD_KM","MPF","KMPMi"))
 # the radius of the earth, in KM.
 ERAD_KM <<- 6378.137 
 
-MPF <<- 0.3048    # meters per foot
+MPF <<- 0.3048                # meters per foot
 KMPMi <<- 5280 * MPF / 1000   # km per mile
 
 .m2ft <- function(x) { x / MPF }
@@ -46,10 +52,6 @@ KMPMi <<- 5280 * MPF / 1000   # km per mile
 #' @description 
 #'
 #' A shiny app to locate campgrounds.
-#'
-#' @usage
-#'
-#' campr_app()
 #'
 #' @param init_lat  an initial latitude to seed the search.
 #' @param init_lon  an initial longitude to seed the search. The
@@ -83,12 +85,6 @@ campr_app <- function(init_lat=37.7749,init_lon=-122.4194,init_search='San Franc
 	maxdist_km <- 800
 	minelev_m <- -100
 	maxelev_m <- 4000
-
-	# nonsense to get CRAN checks and NSE to play nice.
-	globalVariables(c("campground_name","sdist","type","lat","lon","nearest_town","state","elevation_m","num_campsite","dates_open",
-										"campground","nearest town","num campsites","dates open","closing_week","opening_week",
-										"toilets","showers","drinking_water","reservations",
-										"MoreCamp"))
 
 	types <- list(national=c('National Park'='NP',
 													 'National Monument'='NM',
@@ -176,6 +172,8 @@ campr_app <- function(init_lat=37.7749,init_lon=-122.4194,init_search='San Franc
 
 # Define server logic # FOLDUP
 	my_server <- function(input, output, session) {
+
+
 		viewport <- reactiveValues(lat_cen=init_lat,
 															 lon_cen=init_lon,
 															 lat_lo=init_lat - 0.2,lat_hi=init_lat + 0.2,

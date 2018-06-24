@@ -4,7 +4,8 @@
 \alias{campr_app}
 \title{campr_app .}
 \usage{
-campr_app()
+campr_app(init_lat = 37.7749, init_lon = -122.4194,
+  init_search = "San Francisco")
 }
 \arguments{
 \item{init_lat}{an initial latitude to seed the search.}
