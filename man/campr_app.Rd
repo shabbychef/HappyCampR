@@ -6,20 +6,19 @@
 \usage{
 campr_app()
 }
+\arguments{
+\item{init_lat}{an initial latitude to seed the search.}
+
+\item{init_lon}{an initial longitude to seed the search. The
+default values are for San Francisco.}
+
+\item{init_search}{an initial string to put into the search text.}
+}
 \value{
-Runs the shiny app.
+a shiny app.
 }
 \description{
-One sentence or so that tells you some more.
-}
-\details{
-Really detailed. \eqn{\zeta}{zeta}.
-
-A list:
-\itemize{
-\item I use \eqn{n}{n} to stand for blah.
-\item and so forth....
-}
+A shiny app to locate campgrounds.
 }
 \examples{
 \dontrun{
@@ -29,6 +28,6 @@ campr_app()
 \author{
 Steven E. Pav \email{shabbychef@gmail.com}
 
-Steven E. Pav \email{steven@gilgamath.com}
+Steven E. Pav \email{shabbychef@gmail.com}
 }
 \keyword{shiny}

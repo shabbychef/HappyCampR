@@ -37,7 +37,7 @@
 #' @importFrom utils data
 #' @importFrom shinythemes shinytheme
 #' @importFrom urltools url_encode 
-#' @importFrom leaflet leafletOutput renderLeaflet leaflet addTiles addCircleMarkers
+#' @importFrom leaflet leafletOutput renderLeaflet leaflet addTiles addProviderTiles setView clearMarkers addCircleMarkers
 #' @importFrom geosphere distHaversine distGeo
 #' @importFrom magrittr %>% %<>%
 #' @importFrom lubridate %m+% 
