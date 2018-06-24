@@ -28,12 +28,12 @@ RUN (apt-get clean -y ; \
 #RUN (apt-get dist-upgrade -y ; \
 #apt-get update -qq ; \
 RUN (DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true apt-get install -q -y --no-install-recommends \ 
-	curl wget ; \
+	curl wget libjpeg-dev ; \
 	sync ; \
 	mkdir -p /usr/local/lib/R/site-library ; \
 	chmod -R 777 /usr/local/lib/R/site-library ; \
 	sync ; \
-	/usr/local/bin/install2.r testthat roxygen2 devtools shiny shinythemes DT dplyr ggplot2 geosphere magrittr ggmap urltools string lubridate; )
+	/usr/local/bin/install2.r testthat roxygen2 devtools shiny shinythemes DT dplyr ggplot2 geosphere leaflet magrittr ggmap urltools stringr lubridate; )
 
 RUN groupadd -g 1001 spav && useradd -g spav -u 1001 spav;
 USER spav
