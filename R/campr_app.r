@@ -394,8 +394,8 @@ campr_app <- function(init_lat=37.7749,init_lon=-122.4194,init_search='San Franc
 		output$camps_map <- leaflet::renderLeaflet({
 			viewport$big_move 
 			isolate({
+				#leaflet::addProviderTiles(providers$OpenStreetMap) %>%
 				ph <- leaflet::leaflet() %>%
-					leaflet::addProviderTiles(providers$OpenStreetMap) %>%
 					leaflet::addTiles() %>%
 					leaflet::setView(lat=viewport$lat_cen,lng=viewport$lon_cen,zoom=viewport$zoom_level)
 			})
