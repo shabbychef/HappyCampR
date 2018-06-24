@@ -8,7 +8,7 @@
 .carp <- function(...) { cat(...,file='~/camp_app.log',append=TRUE) }
 
 # nonsense to get CRAN checks and NSE to play nice.
-globalVariables(c("campground_name","sdist","type","lat","lon","nearest_town","state","elevation_m","num_campsite","dates_open",
+utils::globalVariables(c("campground_name","sdist","type","lat","lon","nearest_town","state","elevation_m","num_campsite","dates_open",
 									"campground","nearest town","num campsites","dates open","closing_week","opening_week",
 									"toilets","showers","drinking_water","reservations",
 									"MoreCamp"))
@@ -32,7 +32,7 @@ search_link <- function(campground,city,state) {
 	as.logical(toupper(x))
 }
 
-globalVariables(c("ERAD_KM","MPF","KMPMi"))
+utils::globalVariables(c("ERAD_KM","MPF","KMPMi"))
 
 # the radius of the earth, in KM.
 ERAD_KM <<- 6378.137 

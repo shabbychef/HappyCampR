@@ -34,7 +34,7 @@
 #'
 #' @import shiny
 #' @importFrom dplyr mutate arrange select filter rename left_join coalesce distinct summarize everything data_frame
-#' @importFrom utils data
+#' @importFrom utils data globalVariables
 #' @importFrom shinythemes shinytheme
 #' @importFrom urltools url_encode 
 #' @importFrom leaflet leafletOutput renderLeaflet leaflet addTiles addProviderTiles setView clearMarkers addCircleMarkers
