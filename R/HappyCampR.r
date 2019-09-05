@@ -97,7 +97,7 @@ NULL
 #'  \code{USFW} for \dQuote{US Fish and Wildlife},
 #'  \code{AMCW} for \dQuote{US Fish and Wildlife},
 #'  a few others, probably miscoded, and
-#'  and around 130 \code{NA}.}
+#'  around 130 \code{NA}.}
 #'  \item{\code{phone_number}}{The phone number, as a string.}
 #'  \item{\code{dates_open}}{The published dates open, as a string.}
 #'  \item{\code{comments}}{The published comments, as a string.}
