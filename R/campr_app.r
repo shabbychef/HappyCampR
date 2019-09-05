@@ -126,7 +126,7 @@ campr_app <- function(init_lat=37.7749,init_lon=-122.4194,init_search='San Franc
 			sidebarPanel(#FOLDUP
 				width=2,
 				checkboxInput("follow_map","Link to map",value=TRUE),
-				conditionalPanel(condition="input.follow_map",
+				conditionalPanel(condition="input.follow_map == 1",
 					fluidRow(column(10,
 													div(style='vertical-alignment:bottom',
 													textInput("location_lookup","Lookup Location:",value=init_search,placeholder=init_search))),
@@ -214,11 +214,11 @@ campr_app <- function(init_lat=37.7749,init_lon=-122.4194,init_search='San Franc
 			# nah, don't do this, it screws up the map.
 			# if (!is.null(min_dist)) { updateSliderInput(session,'sel_dist',value=c(min(input$sel_dist),min_dist)) }
 
-				if (!is.null(lat_cen) && (abs(lat_cen - input$sel_lat) > 0.35*del_lat)) { 
+				if (!is.null(lat_cen) && !is.null(input$sel_lat) && (abs(lat_cen - input$sel_lat) > 0.35*del_lat)) { 
 					updateNumericInput(session,'sel_lat',value=lat_cen)
 					updateTextInput(session,'location_lookup',value='',placeholder=searched$text)
 				}
-				if (!is.null(lon_cen) && (abs(lon_cen - input$sel_lon) > 0.35*del_lon)) { 
+				if (!is.null(lon_cen) && !is.null(input$sel_lon) && (abs(lon_cen - input$sel_lon) > 0.35*del_lon)) { 
 					updateNumericInput(session,'sel_lon',value=lon_cen)
 					updateTextInput(session,'location_lookup',value='',placeholder=searched$text)
 				}
@@ -308,14 +308,20 @@ campr_app <- function(init_lat=37.7749,init_lon=-122.4194,init_search='San Franc
 			otdat
 		})
 
+		searched_lonlat <- reactive({
+			srch_lonlat <- c(input$sel_lon,input$sel_lat)
+		})
+
 		search_data <- reactive({
-			srch_df <- data_frame(lon=input$sel_lon,lat=input$sel_lat,
-														location=coalesce(input$location_lookup,''))
+			srch_lonlat <- searched_lonlat()
+			srch_df <- data_frame(lon=srch_lonlat[1],lat=srch_lonlat[2],
+														location=ifelse(is.null(input$location_lookup),'',
+																						coalesce(input$location_lookup,'')))
 		})
 
 		# attach distance to the latitude and longitude point.
 		dist_data <- reactive({
-			srch_lonlat <- c(input$sel_lon,input$sel_lat)
+			srch_lonlat <- searched_lonlat()
 
 			if (input$sel_units=='metric') {
 				dirange <- input$sel_dist
