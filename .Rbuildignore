@@ -43,3 +43,4 @@ submodule_directions.sh
 campdata
 ^data-raw$
 ^app.R
+^\.github$
