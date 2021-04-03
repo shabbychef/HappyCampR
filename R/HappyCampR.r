@@ -143,6 +143,7 @@ NULL
 #' }
 "MoreCamp"
 
+globalVariables(c('MoreCamp'))
 
 #' @title News for package 'HappyCampR':
 #'

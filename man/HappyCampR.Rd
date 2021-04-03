@@ -3,7 +3,6 @@
 \docType{package}
 \name{HappyCampR}
 \alias{HappyCampR}
-\alias{HappyCampR-package}
 \title{Shiny App to Find Campgrounds}
 \description{
 Shiny App to Find Campgrounds

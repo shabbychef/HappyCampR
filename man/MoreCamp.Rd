@@ -4,7 +4,8 @@
 \name{MoreCamp}
 \alias{MoreCamp}
 \title{Campground Data}
-\format{A \code{data.frame} object with 13,011 rows and over 20 columns,
+\format{
+A \code{data.frame} object with 13,011 rows and over 20 columns,
 each row respresenting a campground in the US or Canada.
 The data are taken from USA Campgrounds Info.
 
@@ -78,7 +79,8 @@ The columns are defined as follows:
  \item{\code{elevation_m}}{The elevation of the campground, in meters.}
  \item{\code{distance_to_town_km}}{The distance to the nearest town,
  in kilometers.}
-}}
+}
+}
 \source{
 USA Campgrounds Info, compiled by Tom Hillegass,
 \url{http://www.uscampgrounds.info/}.
