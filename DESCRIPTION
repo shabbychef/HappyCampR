@@ -4,10 +4,10 @@ Authors@R: c(person(c("Steven", "E."), "Pav",
     role=c("aut","cre"),
     email="shabbychef@gmail.com",
     comment = c(ORCID = "0000-0002-4197-6195")))
-Version: 0.0.0.0004
-Date: 2019-09-04
+Version: 0.0.0.0005
+Date: 2021-04-03
 License: LGPL-3
-Title: Shiny app to find campgrounds
+Title: Shiny App to Find Campgrounds
 BugReports: https://github.com/shabbychef/HappyCampR/issues
 Description: A Shiny app to find campgrounds.
 Depends: 
