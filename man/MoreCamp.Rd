@@ -86,10 +86,10 @@ USA Campgrounds Info, compiled by Tom Hillegass,
 \url{http://www.uscampgrounds.info/}.
 }
 \usage{
-MoreCamp
+data(MoreCamp)
 }
 \description{
-...
+Campground data as a data frame.
 }
 \examples{
 \dontrun{

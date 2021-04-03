@@ -57,7 +57,11 @@ NULL
 
 
 #' @title Campground Data
-#' @description ... 
+#' @description 
+#'
+#' Campground data as a data frame.
+#'
+#' @usage data(MoreCamp)
 #' @format A \code{data.frame} object with 13,011 rows and over 20 columns,
 #' each row respresenting a campground in the US or Canada.
 #' The data are taken from USA Campgrounds Info.
